@@ -23,8 +23,8 @@
 		$('.js-fullheight').css('margin-top', '-80px'); // Pull upward
 
 		$(window).resize(function(){
-		$('.js-fullheight').css('height', $(window).height() + 40);
-		$('.js-fullheight').css('margin-top', '-40px');
+		$('.js-fullheight').css('height', $(window).height() + 80);
+		$('.js-fullheight').css('margin-top', '-80px');
 		});
 
 	};
