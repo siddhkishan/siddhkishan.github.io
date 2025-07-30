@@ -19,9 +19,12 @@
 
 	var fullHeight = function() {
 
-		$('.js-fullheight').css('height', $(window).height());
+		$('.js-fullheight').css('height', $(window).height() + 80); // Add extra height
+		$('.js-fullheight').css('margin-top', '-80px'); // Pull upward
+
 		$(window).resize(function(){
-			$('.js-fullheight').css('height', $(window).height());
+		$('.js-fullheight').css('height', $(window).height() + 40);
+		$('.js-fullheight').css('margin-top', '-40px');
 		});
 
 	};
