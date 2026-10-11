@@ -154,37 +154,26 @@
 						<span id="typing-animation"></span>
 
 						<script>
-
-						// Initialize the typing animation
-						const typingAnimationElement = document.getElementById('typing-animation');
-
-						// Create an array of typing text
-						const typingTexts = [
-						'Power Platform Solution Architect  ',
-						'AI & Copilot Solutions  ',
-						'Enterprise Automation  ',
-						];
-
-						// Create a function to display the typing animation for a given text
-						function playTypingAnimation(text) {
-						// Loop through each character and add it to the element
-						for (let i = 0; i < text.length; i++) {
-							setTimeout(() => {
-							typingAnimationElement.textContent += text[i];
-							}, i * 200); // Increase the delay to slow down the typing animation
-						}
-
-						// Once the animation is complete, reset the text and start over
-						setTimeout(() => {
-							typingAnimationElement.textContent = '';
-							playTypingAnimation(typingTexts[(typingTexts.indexOf(text) + 1) % typingTexts.length]);
-						}, text.length * 200);
-						}
-
-						// Start the typing animation loop
-						playTypingAnimation(typingTexts[0]);
-
-						</script>
+(function () {
+  if (window.__typingAnimationStarted) return;
+  window.__typingAnimationStarted = true;
+  const typingAnimationElement = document.getElementById('typing-animation');
+  const typingTexts = ['Power Platform Solution Architect  ', 'AI and Copilot Solutions  ', 'Enterprise Automation  '];
+  function playTypingAnimation(index) {
+    const text = typingTexts[index];
+    let i = 0;
+    typingAnimationElement.textContent = '';
+    const timer = setInterval(() => {
+      typingAnimationElement.textContent += text[i++];
+      if (i >= text.length) {
+        clearInterval(timer);
+        setTimeout(() => playTypingAnimation((index + 1) % typingTexts.length), 900);
+      }
+    }, 110);
+  }
+  playTypingAnimation(0);
+})();
+</script>
 
 						<br>
 						<br>
@@ -608,7 +597,7 @@
   <script src="js/main.js"></script>
     
     <script>
-    async function downloadCurrentCv(event) {
+    window.downloadCurrentCv = async function downloadCurrentCv(event) {
       event.preventDefault();
       try {
         const response = await fetch('Radha-Kishan-Sharma-CV.base64.txt');
@@ -624,11 +613,11 @@
         document.body.appendChild(link);
         link.click();
         link.remove();
-        URL.revokeObjectURL(url);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
       } catch (error) {
         window.location.href = 'Radha-Kishan-Sharma-CV.base64.txt';
       }
-    }
+    };
   </script>
   </body>
 </html>
