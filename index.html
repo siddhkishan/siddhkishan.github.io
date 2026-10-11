@@ -360,7 +360,7 @@
           <div class="col-md-6"><div class="resume-wrap ftco-animate"><span class="date">2007 - 2009</span><h2>Advanced Diploma in Computer Hardware and Networking</h2><span class="position">GT</span></div></div>
         </div>
         <div class="row justify-content-center mt-5"><div class="col-md-6 text-center ftco-animate">
-          <p><a href="https://github.com/siddhkishan/siddhkishan.github.io/raw/main/Radha%20Kishan%20Sharma_Resume.pdf" class="btn btn-primary py-4 px-5">Download CV</a></p>
+          <p><a href="#download-cv" class="btn btn-primary py-4 px-5" onclick="downloadCurrentCv(event)" onclick="downloadCurrentCv(event)">Download CV</a></p>
         </div></div>
       </div>
     </section>
@@ -614,7 +614,7 @@
           			<span class="icon-phone2"></span>
           		</div>
           		<h3 class="mb-4">Contact Number</h3>
-	            <p><a href="tel://0101010101">+91 88290 78290</a></p>
+	            <p><a href="tel:+918829078290">+91 88290 78290</a></p>
 	          </div>
           </div>
           <div class="col-md-6 col-lg-3 d-flex ftco-animate">
@@ -623,7 +623,7 @@
           			<span class="icon-paper-plane"></span>
           		</div>
           		<h3 class="mb-4">Email Address</h3>
-	            <p><a href="mailto:siddhkishan@gmail.com">siddhkishan@gmail.com</a></p>
+	            <p><a href="mailto:siddhkishan@outlook.com">siddhkishan@outlook.com</a></p>
 	          </div>
           </div>
           <div class="col-md-6 col-lg-3 d-flex ftco-animate">
@@ -632,7 +632,7 @@
           			<span class="icon-globe"></span>
           		</div>
           		<h3 class="mb-4">Download Resume</h3>
-	            <p><a href="https://github.com/siddhkishan/siddhkishan.github.io/raw/main/Radha%20Kishan%20Sharma_Resume.pdf">resumelink</a></p>
+	            <p><a href="#download-cv">resumelink</a></p>
 	          </div>
           </div>
 
@@ -693,5 +693,28 @@
   
   <script src="js/main.js"></script>
     
+    <script>
+    async function downloadCurrentCv(event) {
+      event.preventDefault();
+      try {
+        const response = await fetch('Radha-Kishan-Sharma-CV.base64.txt');
+        if (!response.ok) throw new Error('CV file could not be loaded');
+        const base64 = (await response.text()).trim();
+        const binary = atob(base64);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+        const url = URL.createObjectURL(new Blob([bytes], { type: 'application/pdf' }));
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'Radha-Kishan-Sharma-CV.pdf';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      } catch (error) {
+        window.location.href = 'Radha-Kishan-Sharma-CV.base64.txt';
+      }
+    }
+  </script>
   </body>
 </html>
